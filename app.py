@@ -7,6 +7,8 @@ from fastapi.openapi.utils import get_openapi
 from util.config import Env  # 確保環境變數被載入
 import secrets
 
+import router.news as news_router
+
 # 初始化 HTTPBasic 認證
 security = HTTPBasic()
 
@@ -64,6 +66,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(news_router.router)
 
 @app.get("/")
 def root():
