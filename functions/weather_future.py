@@ -4,6 +4,7 @@ from typing import Dict, List, Any
 from datetime import datetime
 
 from util.config import env
+from util.nowtime import getFutureTime
 
 
 def format_time_key(time_str: str) -> str:
@@ -41,7 +42,9 @@ def windspeed_taipei_future():
     url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-061"
     params = {
         "Authorization": env.CWA_API_KEY,
-        "format": "JSON"
+        "format": "JSON",
+        "timeFrom": getFutureTime()['timeFrom'],
+        "timeTo": getFutureTime()['timeTo']
     }
 
     # 發送 GET 請求
