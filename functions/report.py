@@ -7,7 +7,7 @@ from util.nowtime import getTaiwanTime
 # 初始化 Supabase 連線
 supabase: Client = create_client(env.SUPABASE_URL, env.SUPABASE_KEY)
 
-def insert_issue(address: str, obstacle_type: str, description: str, time: datetime):
+def insert_issue(address: str, obstacle_type: str, description: str, time: datetime, modtified_userid: str = "visitor"):
     """
     將一筆障礙回報資料寫入 Supabase 資料庫。
     """
@@ -15,7 +15,8 @@ def insert_issue(address: str, obstacle_type: str, description: str, time: datet
         "address": address,
         "type": obstacle_type,
         "description": description,
-        "time": time.isoformat() if isinstance(time, datetime) else time
+        "time": time.isoformat() if isinstance(time, datetime) else time,
+        "modtified_userid": modtified_userid,
     }
 
     try:
@@ -96,7 +97,7 @@ def read_issues_by_status(status: str | None = None):
         print("❌ 查詢錯誤:", e)
         return None
 
-def update_issue_status(issue_id: str, new_status: str = "solved"):
+def update_issue_status(issue_id: str, new_status: str = "solved", modtified_userid: str = "visitor"):
     """
     根據指定 id，將 issues 資料表中的 status 更新為指定狀態。
     預設 new_status='solved'。
@@ -105,7 +106,10 @@ def update_issue_status(issue_id: str, new_status: str = "solved"):
         response = (
             supabase
             .table("issues")
-            .update({"status": new_status})
+            .update({
+                "status": new_status,
+                "modtified_userid": modtified_userid,  # 加上修改者紀錄
+            })
             .eq("id", issue_id)
             .execute()
         )
