@@ -16,3 +16,9 @@ def get_news_local():
     response = requests.get(url)
     data = response.json()
     return data
+
+@router.get("/police_opendata", response_class=JSONResponse)
+def get_opendata_news():
+    from functions.police import opendata_news_data
+    data = opendata_news_data()
+    return data
