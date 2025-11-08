@@ -7,4 +7,6 @@ fastapi
 uvicorn[standard]
 python-multipart
 supabase
-# huggingface_hub
+huggingface_hub
+h3
+pyproj

@@ -10,6 +10,7 @@ import secrets
 import router.news as news_router
 import router.wind as wind_router
 import router.issue as issue_router
+import router.map as map_router
 
 # 初始化 HTTPBasic 認證
 security = HTTPBasic()
@@ -72,6 +73,7 @@ app.add_middleware(
 app.include_router(news_router.router)
 app.include_router(wind_router.router)
 app.include_router(issue_router.router)
+app.include_router(map_router.router)
 
 @app.get("/")
 def root():
