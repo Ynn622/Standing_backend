@@ -95,3 +95,28 @@ def read_issues_by_status(status: str | None = None):
     except Exception as e:
         print("❌ 查詢錯誤:", e)
         return None
+
+def update_issue_status(issue_id: str, new_status: str = "solved"):
+    """
+    根據指定 id，將 issues 資料表中的 status 更新為指定狀態。
+    預設 new_status='solved'。
+    """
+    try:
+        response = (
+            supabase
+            .table("issues")
+            .update({"status": new_status})
+            .eq("id", issue_id)
+            .execute()
+        )
+
+        if response.data:
+            print(f"✅ 已更新 id={issue_id} 的狀態為 '{new_status}'")
+            return response.data
+        else:
+            print(f"⚠️ 找不到 id={issue_id} 的資料")
+            return None
+
+    except Exception as e:
+        print("❌ 更新錯誤:", e)
+        return None

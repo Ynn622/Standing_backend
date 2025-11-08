@@ -27,3 +27,9 @@ def get_issues_by_status(status: str = "Unsolved"):
     from functions.report import read_issues_by_status
     issues = read_issues_by_status(status=status)
     return issues
+
+@router.post("/update", response_class=JSONResponse)
+def update_issue(issue_id: str, new_status: str = "Solved"):
+    from functions.report import update_issue_status
+    result = update_issue_status(issue_id=issue_id, new_status=new_status)
+    return result
