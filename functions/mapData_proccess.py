@@ -344,8 +344,8 @@ class TaipeiDataManager:
                 wind_speed = nearest_station['wind_speed'] if nearest_station and nearest_station.get('wind_speed') else 0
                 # 風速調整公式：((wind * (1.5/10)**0.25) * (min(1 + 0.25*max(0, max_height/8 -1), 1.6)) * (1.36))
                 # combined_value = max_height + (wind_speed if wind_speed else 0)
-                wind_speed = 11
-                combined_value = ((wind_speed * (1.5/10)**0.25) * (min(1 + 0.25*max(0, max_height/15 -1), 1.8)) * (1.36))
+                # wind_speed = 11
+                combined_value = ((wind_speed * (1.5/10)**0.25) * (min(1 + 0.25*max(0, max_height/8 -1), 1.6)) * (1.36))
                 
                 # 只保留必要欄位：h3_index, combined_value
                 hex_data.append({
